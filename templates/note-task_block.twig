@@ -1,0 +1,20 @@
+<dl class="note-add-wrapper {{ widget_code }}">
+  <dd class="note-add-wrapper__left {% if not element_id %}note-add-wrapper__left-no-filter{% endif %}">
+    <dl class="note-add-inner">
+      <dt class="note-add-inner__left">
+        <button type="button" class="button-input js-note-switcher note-add-switcher" tabindex="" id="">
+					<span class="button-input-inner">
+						<span class="icon icon-clock-2"></span>
+						<span class="button-input-inner__text"></span>
+					</span>
+        </button>
+        <div class="task-add-holder" id="task_add_wrapper">
+          {% include "templates/task_add.twig" with { is_add: true, params: {main_user: current_user, text: ""} } %}
+        </div>
+        <div class="note-add-holder" id="note_add_wrapper">
+          {% include "templates/note_add.twig" with { is_add: true } %}
+        </div>
+      </dt>
+    </dl>
+  </dd>
+</dl>

@@ -1,0 +1,38 @@
+<div id="vox_imp__dial_wrapper" class="{{ widget_code }}_call__dial_wrapper {{ widget_code }}">
+  <div class="{{ widget_code }}_call__dial_title">{{ lang.transfer_title }}</div>
+  <div class="{{ widget_code }}_call__dial_display">
+    <span class="dial_display__gradient"></span>
+    <input class="{{ widget_code }}_call__dial_display__phone text-input" type="text" value="" maxlength=""
+           autocomplete="off">
+    <button class=" {{ widget_code }}_call__dial_display__btn {{ widget_code }}_call__dial_display__btn__icon js-backspace">
+      <span class="{{ widget_code }}_dial__backspace-icon" title="{{ lang.clear }}"></span>
+    </button>
+  </div>
+  <div class="{{ widget_code }}_call__dial_keyboard">
+    {% for key in dial_keys %}
+      <div id="{{ key.id }}" data-num="{{ key.num }}" class="{{ widget_code }}_call__dial_keyboard__item">
+        <span class="{{ widget_code }}_call__dial_keyboard__item_number">{{ key.num }}</span>
+        <span class="{{ widget_code }}_call__dial_keyboard__item_words">{{ key.text }}</span>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="{{ widget_code }}_call__dial_transfer_wrapper">
+    <div id="vox_imp__standby_btn" class="dial_transfer_button {{ widget_code }}_call__standby_button js-complete_forward">
+      <span class="button-icon {{ widget_code }}_call__standby_button-icon" title="{{ lang.back_to_call }}"></span>
+      <span class="button-text {{ widget_code }}_call__standby_button-text">{{ lang.back_to_call }}</span>
+    </div>
+    <div id="vox_imp__transfer_btn" class="dial_transfer_button {{ widget_code }}_call__transfer_button">
+      <span class="button-icon {{ widget_code }}_call__transfer_button-icon" title="{{ lang.transfer }}"></span>
+      <span class="button-text {{ widget_code }}_call__transfer_button-text">{{ lang.transfer }}</span>
+    </div>
+    <div id="vox_imp__transfer__dial_btn" class="dial_transfer_button {{ widget_code }}_call__dial_button js-forward">
+      <span class="button-icon {{ widget_code }}_call__dial_button-icon" title="{{ lang.dial }}"></span>
+      <span class="button-text {{ widget_code }}_call__dial_button-text">{{ lang.dial }}</span>
+    </div>
+    <div id="vox_imp__transfer__dial_accept_btn"
+         class="dial_transfer_button {{ widget_code }}_call__dial_accept_button js-complete_forward">
+      <span class="button-icon {{ widget_code }}_call__dial_accept_button-icon" title="{{ lang.dial_accept }}"></span>
+      <span class="button-text {{ widget_code }}_call__dial_accept_button-text">{{ lang.transfer }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+{% set new_contact = not element.text %}
+{% if not company.name or not element.text %}
+  {% set additional_class = "only-one" %}
+  {% set only_one = true %}
+{% endif %}
+<div class='call_notify_wrapper {{ additional_class }} {{ widget_code }}'>
+  <div class="call_notify__incoming">
+    <span class="{{ widget_code }}_call__status__contact__call_type">{{ lang.incoming_call }}</span>
+    <span class="{{ widget_code }}_call__status__contact__call_num">{{ phone }}</span>
+  </div>
+  <div class="call_notify_wrapper__contact">
+        <span class="{{ widget_code }}_call__list_wrapper__list__task__contact">
+            {% if element.text %}
+              <a id="incoming_from" class="js-navigate-link" title="{{ element.text }}" href="{{ element.url }}">
+                {{ element.text }}
+              </a>
+            {% else %}
+              <a id="incoming_from" class="js-navigate-link" title="{{ lang.new_contact }}"
+                 href="/contacts/add/?phone={{ phone }}">
+                {{ lang.new_contact }}
+              </a>
+            {% endif %}
+        </span>
+  </div>
+</div><!--
+--><div class="call_notify__manage_call {{ widget_code }}">
+  <div class="{{ widget_code }}_call__btn {{ widget_code }}_call__phone_btn hangup-button js-incoming-hangup">
+    <span class="phone_button_text">{{ lang.decline }}</span>
+  </div>
+  <div class="{{ widget_code }}_call__btn {{ widget_code }}_call__phone_btn answer-button {% if new_contact %}answer-button-new_contact{% endif %} js-incoming-answer">
+    <span class="phone_button_text">{{ lang.answer }}</span>
+  </div>
+  {% if not new_contact %}
+    <div class="{{ widget_code }}_call__btn {{ widget_code }}_call__phone_btn answer-with-card-button js-incoming-answer-with-card">
+      <span class="phone_button_text">{{ lang.open_contact }}</span>
+    </div>
+  {% endif %}
+</div>

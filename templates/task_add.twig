@@ -1,0 +1,113 @@
+{% set button_text = lang.task_done %}
+{% set textarea_class = "js-task-edit-textarea" %}
+{% set cancel_class = "js-task-edit-cancel" %}
+{% if is_add %}
+  {% set button_text = lang.task_post %}
+  {% set textarea_class = "js-task-add-textarea" %}
+  {% set cancel_class = "js-task-add-cancel" %}
+{% endif %}
+
+{% if not is_add %}
+  {% set icon = 'follow-up' %}
+  {% set color = 'green' %}
+  {% if params.type == 2 %}
+    {% set icon = 'case-red' %}
+    {% set color = 'red' %}
+  {% elseif params.type not in [1, 3] %}
+    {# constants: 1 - CALL, 3 - LETTER #}
+    {% set icon = 'clock-blue-big' %}
+    {% set color = 'blue' %}
+  {% endif %}
+{% endif %}
+<div class="note task {% if not is_add %}task-{{ color }}{% endif %} {% if is_edit %}task-edit{% endif %} {% if is_add %}js-task-add task-add{% endif %} {{ widget_code }}"
+    id="note_edit_{{ id }}" data-id="{{ id }}" {% if params.temp %}style="margin-right:0"{% endif %}>
+  {% if not is_add %}
+    <div class="icon icon-{{ icon }} note-icon"></div>
+    <div class="note--header">
+      <dd class="note--header--right">{% if linked %} {{ lang.notes_in }} <a href="{{ linked.uri }}"
+                                                                             class="js-navigate-link">{{ linked.name }}</a>{% endif %}
+      </dd>
+      <dt class="note--header--left">
+        {% if params.task_from and params.main_user.id != params.task_from.id %}{{ params.task_from.name }} {{ lang.task_for }} {% endif %}
+        <b>{{ params.main_user.name }}</b>
+      </dt>
+    </div>
+  {% endif %}
+  <div class="task-edit-inner">
+    {% if is_add and not is_not_exist %}
+
+      {# {% include "interface/controls/button.twig" with {class_name: "task-edit__revert-to-note js-note-switcher", icon_class_name: "icon-text", tab_index: "-1"} %} #}
+
+      {# instead button.twig #}
+      <button type="button" class="button-input task-edit__revert-to-note js-note-switcher" tabindex="" id="">
+				<span class="button-input-inner">
+					<span class="icon icon-text"></span>
+					<span class="button-input-inner__text "></span>
+				</span>
+      </button>
+
+    {% endif %}
+
+    <div class="task-edit__body">
+      <div class="modal-body__inner__task-date-time clearfix">
+        {# {% include "interface/common/tasks_date.twig" with {date: date} %} #}
+      </div>
+
+      {# {% include "interface/controls/select.twig" with {id: "task_edit_main_user", items: managers, selected: params.main_user.id, class_name: 'task-edit__managers control--select-white'} %}
+      {% include "interface/notes/task_types.twig" with {id: "task_edit_type", task_types: task_types, name: 'type', selected: params.type, class_name: 'control--select-white task-edit__task-type'} %}
+      {% include "interface/controls/textarea.twig" with {name: 'body', id: "task_edit_body", class_name: "textarea-autosize task-edit__textarea " ~ textarea_class, placeholder: lang.task_placeholder, value: params.text, additional_data: 'data-old-value="' ~ params.text ~ '"', tab_index: "-1"} %} #}
+
+      {# instead select.twig #}
+      <div class="control-wrapper control--select" style="">
+        <ul class="custom-scroll control--select--list-to-top control--select--list">
+          <li data-value="all" data-color="" class="control--select--list--item control--select--list--item-selected  "
+              style="">
+            <span class="control--select--list--item-inner" title="Ignore" data-before="To-dos: ">Wrong number</span>
+            <b class="control--select--down-icon icon icon-v-ico-2"></b>
+          </li>
+          <li data-value="today" data-color="" class="control--select--list--item   " style="">
+            <span class="control--select--list--item-inner" title="Today" data-before="To-dos: ">Wrong mind</span>
+            <b class="control--select--down-icon icon icon-v-ico-2"></b>
+          </li>
+        </ul>
+        <input type="hidden" class="control--select--input" id="" name="" value="all">
+      </div>
+      {# instead textarea.twig #}
+      <textarea name="body" id="task_edit_body" class="textarea-autosize task-edit__textarea "
+                data-old-value="{{ params.text }}" placeholder="{{ lang.task_placeholder }}"
+                tabindex="-1">{{ params.text }}</textarea>
+
+    </div>
+    <div class="task-edit__footer">
+
+      {# {% include "interface/controls/button.twig" with {text: button_text, disabled: true, class_name: "js-button-with-loader js-task-submit", tab_index: "-1"} %}
+      {% include "interface/controls/cancel_button.twig" with {text: lang.button_cancel, class_name: "task-edit__cancel " ~ cancel_class, tab_index: "-1"} %} #}
+
+      {# instead button.twig #}
+      <button type="button"
+              class="button-input disabled js-button-with-loader js-note-submit note-edit__actions__submit" tabindex=""
+              id="">
+				<span class="button-input-inner">
+					<span class="icon"></span>
+					<span class="button-input-inner__text">{{ button_text }}</span>
+				</span>
+      </button>
+      <span class="button-cancel cancel_class task-edit__cancel " tabindex="2" id="">lang.button_cancel</span>
+
+      {% if is_edit %}
+        <div class="task-edit__delete js-note-delete-btn">
+          <span class="icon icon-inline icon-delete-trash task-edit__delete__icon"></span> {{ lang.note_delete|lower }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% if not is_add and not params.temp %}
+  <div class="note-actions-wrapper {{ widget_code }}">
+    {% if not params.complate %}
+      <div class="note-actions__btn note-actions__btn-complete js-task-complete-btn"><span
+          class="note-actions__btn__icon-wrapper"><span
+            class="icon icon-checkmark-green note-actions__icon"></span>{{ lang.tasks_complete|lower }}</span>
+      </div>{% endif %}
+  </div>
+{% endif %}

@@ -1,0 +1,35 @@
+<div class="vox_imp__call_result__form__reason {{ widget_code }}">
+    <span class="modal-body__close">
+        <span class="icon icon-modal-close"></span>
+    </span>
+
+  <h2 class="modal-body__caption">{{ lang.call_failed }}</h2>
+  {% if result_options %}
+    <div class="vox_imp__call_result__reason_is">
+      <div class="control-wrapper control--select ">
+        <ul class="control--select--list custom-scroll">
+          {% for key, option in result_options %}
+            <li data-value="" data-color=""
+                class="control--select--list--item{% if option.selected %} control--select--list--item-selected{% endif %}">
+              <span class="control--select--list--item-inner" title="{{ option.name }}">{{ option.name }}</span>
+              <b class="control--select--down-icon icon icon-v-ico-2"></b>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+  <div class="vox_imp__call_result__form__failed_phone">
+    <input name="" class="vox_imp__call_result__failed_phone text-input" id="recall_input" type="text"
+           placeholder="{{ lang.phone_number }}" value="{{ phone }}" maxlength="" autocomplete="off">
+  </div>
+  <div>
+    <button type="button" id="js-fail-recall" class="button-input vox_imp__modal__save" tabindex="" id="">
+                <span class="button-input-inner">
+                    <span class="icon"></span>
+                    <span class="button-input-inner__text js-recall">{{ lang.recall }}</span>
+                </span>
+    </button>
+    <span class="button-cancel modal-list modal-leave-confirm" tabindex="2" id="">{{ lang.cancel }}</span>
+  </div>
+</div>

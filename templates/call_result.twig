@@ -1,0 +1,65 @@
+<div class="vox_imp__call_result {{ widget_code }}">
+	<span class="modal-body__close">
+		<span class="icon icon-modal-close"></span>
+	</span>
+
+  <h1 class="vox_imp__call_result__header">{{ lang.call_summary }} {{ phone }}</h1>
+
+  <div class="vox_imp__call_result__wrapper">
+    <div class="vox_imp__call_result__suggests">
+      <div class="vox_imp__call_result__common contact {% if element.id %}element_linked{% endif %}">
+        <span class="icon-relation vox_imp__call_result__icon"></span>
+        {{ suggest }}
+      </div>
+      <div class="vox_imp__call_result__common lead {% if lead_linked %}element_linked{% endif %}">
+        <span class="icon-coin vox_imp__call_result__icon"></span>
+        {{ lead_suggest }}
+      </div>
+    </div>
+    <div id="vox_recorded_talk" class="vox_imp__call_result__recorded_talk">
+      <a href="{{ record.url }}" class="js-call-play icon--play vox_imp__call_result__play_audio"><!--
+			--><span class="vox-icon-play js-icon-play"></span><span class="vox-icon-stop js-icon-stop"></span><span
+            class="spinner-icon player-loading"></span></a>
+
+      <div class="vox_imp__call_result__audio_wrapper">
+        <div class="amo-player-container--progress amo-player-container--scrubber">
+          <div class="amo-player-container--progress">
+            <div class="amo-player-container--loaded"></div>
+          </div>
+        </div>
+      </div>
+      <!--
+            --><span class="vox_imp__call_result__audio_length amo-player-container--time"><em
+            class="amo-player-container--played">00:00</em>/{{ duration|time }}</span>
+      <span class="vox_imp__call_result__audio_delete"><span class="icon icon-delete-trash"></span></span>
+    </div>
+    {% if result_options %}
+      <div class="vox_imp__call_result__reason_is">
+        <div class="control-wrapper control--select ">
+          <ul class="control--select--list custom-scroll">
+            {% for key, option in result_options %}
+              <li data-value="{{ option.value }}" data-color=""
+                  class="control--select--list--item{% if option.selected %} control--select--list--item-selected{% endif %}">
+                <span class="control--select--list--item-inner" title="{{ option.text }}">{{ option.text }}</span>
+                <b class="control--select--down-icon icon icon-v-ico-2"></b>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+    <div class="vox_imp__call_result__form">
+      <div class="vox_imp__call_result__form__task">
+        {{ notes_block }}
+      </div>
+    </div>
+    <button type="button" id="js-modal-accept" class="button-input vox_imp__modal__save" tabindex="" id="">
+			<span class="button-input-inner">
+				<span class="icon"></span>
+				<span class="button-input-inner__text">{{ lang.save }}</span>
+			</span>
+    </button>
+    <span class="button-cancel modal-list modal-leave-confirm" tabindex="2"
+          id="js-call-result-cancel">{{ lang.cancel }}</span>
+  </div>
+</div>
