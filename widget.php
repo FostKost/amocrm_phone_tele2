@@ -1,629 +1,327 @@
 <?php
-namespace amo__vox__implant;
+namespace test;
 defined('LIB_ROOT') or die();
+/**
+ * Class Widget
+ * example widget class
+ */
+class Widget extends \Helpers\Widgets{
+	protected function endpoint_get(){
+		//to get widget lang value based on account setting
+		//\Helpers\Debug::vars(\Helpers\I18n::get('settings.enums.yes'));
+		/**
+		 * current account information
+		 */
+		//\Helpers\Debug::vars($this->account->current(),'account');
 
-class Widget extends \Helpers\Widgets
-{
+		/**
+		 * get methods
+		 * array with available params
+		 */
+		$params = array(
+			//'since'=>time()-36000, //since what time get elements (only timestamp)
+			//'limit'=>10, //limitation of response elements (max 500)
+			//'offset'=>0, //limit offset
+			//'id'=>2000308, //take element from account with this id (if this param exists all others are skipping)
+			//'query'=>'test', //search element by query (you can search by email or phone or any other fields, except notes and tasks
+			//'type'=>'contact', //or lead - this param only require for notes selection, but also available for tasks
+			//'element_id'=> 5282604 //contact or lead id - only for notes or tasks selection
+			//'status'=>array(26264,142), //only for leads - id of lead's statuses you can find in $this->account->current('leads_statuses)
+			//'responsible_user_id'=>array(52,8), //for contacts,leads and tasks - set additional filter for responsible user(s)
 
-	private $point = /* 'Ссылка на API' */;
-	private $acc_name = /* 'Имя аккаунта' */;
-	private $api_key = /* 'Ключ API' */;
-
-	private $minSuggest = 3;
-
-    private function post( $data, $method, $acc_id=false, $api_key=false) {
-        $path = $this->point.$method.'/?';
-
-        if(isset($data['cmd'])) {
-            $path .= 'cmd='.urlencode($data['cmd']).'&';
-            unset($data['cmd']);
-        }
-
-        $path .= ($acc_id?'account_id='.$acc_id:'parent_account_name='.$this->acc_name).'&';
-        $path .= ($api_key?'api_key='.$api_key:'parent_account_api_key='.$this->api_key).'&';
-
-        foreach  ($data as $key=>$val)
-        	$path .= $key.'='.urlencode($val).'&';
-
-        return \Helpers\Curl::init($path);
-    }
-
-    private function error($text=false){ // результат - ошибка
-        if (!$text) $text=\Helpers\I18n::get('server.post_error');
-        ob_end_clean();
-        die('{"error": "'.htmlspecialchars($text).'"}');
-    }
-
-    private function ok($arr){ // результат - ок
-        ob_end_clean();
-        die(json_encode($arr));
-    }
-
-    private function param($k,$default=NULL){
-        $res = \Helpers\Route::param($k);
-        return $res?$res:$default;
-    }
-
-    private function get($arr,$key){
-    	return array_key_exists($key,$arr)?$arr[$key]:'';
-    }
-
-    private function getRandomString($length = 10) {
-	    $validCharacters = "1234567890abcdefghijklmnopqrstuxyvwzABCDEFGHIJKLMNOPQRSTUXYVWZ+-*#@!?";
-	    $validCharNumber = strlen($validCharacters);
-
-	    $result = "";
-
-	    for ($i = 0; $i < $length; $i++) {
-	        $index = mt_rand(0, $validCharNumber - 1);
-	        $result .= $validCharacters[$index];
-	    }
-
-	    return $result;
-	}
-
-	private function get_scenarios($data) {
-		$result = array();
-		if(!empty($data['account_id']) && !empty($data['api_key'])) {
-			$result = $this->post(array(),'GetScenarios',$data['account_id'],$data['api_key']);
-		}
-		return $result;
-	}
-
-	private function get_rules($data) {
-		$result = array();
-		if(!empty($data['account_id']) && !empty($data['api_key'])) {
-			$result = $this->post(array(
-				 'application_id' => $data['application_id'],
-			),'GetRules', $data['account_id'], $data['api_key']);
-		}
-		return $result;
-	}
-
-	private function add_rule($data) {
-		if(!empty($data)) {
-			$res = $this->post(array(
-				'application_id'	=> $data['application_id'],
-				'rule_name'			=> $data['rule_name'],
-				'rule_pattern'		=> $data['rule_pattern']
-		   ),'AddRule',$data['account_id'],$data['api_key']);
-
-			if (array_key_exists('result',$res)){
-				$rule_id = $res['rule_id'];
-				$this->post(array(
-					'scenario_id'=>$data['scenario_id'],
-					'rule_id'=>$rule_id,
-			   	),'BindScenario', $data['account_id'], $data['api_key']);
-			}
-		}
-	}
-
-	private function add_scenario($data, $bind = false) {
-		$result = $this->post($data,'AddScenario',$data['account_id'],$data['api_key']);
-		if (array_key_exists('result',$result) && $bind) {
-			$rule = array(
-				'application_id' => $data['application_id'],
-				'account_id'	 => $data['account_id'],
-				'api_key'		 => $data['api_key'],
-				'scenario_id'	 => $result['scenario_id']
-			);
-			switch($bind){
-				case 'incomming':
-					$rule['rule_name'] = 'Imcomming Call';
-					$rule['rule_pattern'] = '.*';
-					break;
-				case 'outcomming':
-					$rule['rule_name'] = 'Outcomming Call';
-					$rule['rule_pattern'] = '000.*';
-					break;
-			}
-			if(!empty($rule) && is_array($rule)) {
-				$this->add_rule($rule);
-			}
-		}
-		return $result;
-	}
-
-	private function add_scenarios($data) {
-		$scenarios = $result = array();
-		if(!empty($data['account_id']) && !empty($data['api_key'])) {
-			$scenarios[] = array(
-				'rule'		=> 'outcomming',
-				'scenario_name' 	=> 'amocrm outcomming call',
-				'scenario_script'	=> /* Ваш скрипт работы с входящим звонка */
-			);
-			$scenarios[] = array(
-				'rule'				=> 'incomming',
-				'scenario_name' 	=> 'amocrm incomming call',
-				'scenario_script'	=> /* Ваш скрипт работы с исходящим звонка */
-			);
-
-			$params = $data;
-			foreach($scenarios as $scenario) {
-				$rule_type = $scenario['rule'];
-				unset($scenario['rule']);
-				$params = array_merge($params, $scenario);
-				$scenario_result = $this->add_scenario($params, $rule_type);
-				if (array_key_exists('result', $scenario_result)) {
-					$result[] = $scenario_result;
-				}
-			}
-			return $result;
-		}
-	}
-
-	private function getok($ok) {
-		$application_name = 'amocrm';
-		$scenario_name = 'amocrm call record';
-		$rule_name = $scenario_name;
-
-		$res = $this->post(array(
-			'application_name'=>$application_name
-		),'AddApplication',$ok['account_id'],$ok['api_key']);
-
-		if (array_key_exists('result',$res)) {
-			$ok['application_id'] = $res['application_id'];
-			$ok['application_name'] = $res['application_name'];
-
-			if(!empty($ok['account_id']) && !empty($ok['api_key'])) {
-				$res['scenarios'] =  $this->add_scenarios(array(
-						  'account_id' 	=> $ok['account_id'],
-						  'api_key'		=> $ok['api_key'],
-						  'application_id' => $ok['application_id']
-					));
-			}
-		}
-		$ok = array_merge($ok, $res);
-		$this->ok($ok);
-	}
-
-	protected function endpoint_auth_widget(){
-		$login = $this->param('login');
-		$password = $this->param('password');
-
-		$res = $res = $this->post(array(
-	    		'account_email'=>$login,
-	    		'account_password'=>$password
-			),'Logon');
-
-		if (array_key_exists('result',$res)){
-			$this->getok(array(
-    			'email'=>$res['account_email'],
-    			'password'=>$password,
-    			'acc_name' => $res['account_name'],
-    			'account_id' => $res['account_id'],
-    			'api_key' => $res['api_key']
-			));
-		}
-		$this->error('('.$res['error']['code'].') '.$res['error']['msg']);
-	}
-
-	private function getphone($phone,$account_id,$api_key){
-		$ok = false;
-		$res = $this->post(array(),'GetCallerIDs',$account_id,$api_key);
-		if (array_key_exists('result',$res)){
-
-			foreach ($res['result'] as $ph){
-				if ($ph['callerid_number'] == $phone){
-					$ok = array('callerid_id'=> $ph['callerid_id'],'active'=>$ph['active']==1);
-					if ($ph['active']==1) $this->ok($ok);
-					break;
-				}
-			}
-		}
-		return $ok;
-	}
-
-    protected  function endpoint_get_contacts_by_leads(){
-		$selected = $this->param('selected');
-		$result = array(
-			'contacts' => array()
 		);
-		if(is_array($selected)) {
-			$leads = array();
-			foreach($selected as $lead) {
-				if(!in_array($lead['id'], $leads)) {
-					$leads[] = intval($lead['id']);
-				}
-			}
-			if(!empty($leads)) {
-				$res = $this->contacts->links($leads);
-				if(is_array($res)) {
-					$count = sizeof($res);
-					$contacts = array();
-					foreach($res as $link) {
-						if($link['lead_id'] > 0 && empty($contacts[$link['lead_id']])) {
-							$contacts[$link['lead_id']] = $link['contact_id'];
-						}
-					}
-
-					if(!empty($contacts)) {
-						$contacts = $this->contacts->get(array('id' => $contacts));
-						if(is_array($contacts)) {
-							$result['contacts'] = array();
-							foreach($contacts as $contact) {
-								$phone = '';
-								if(!empty($contact['custom_fields'])){
-									foreach($contact['custom_fields'] as $field) {
-										if(!empty($field['code']) && $field['code'] == 'PHONE') {
-											if(!empty($field['values']) && !empty($field['values'][0]) && !empty($field['values'][0]['value'])) {
-												$phone = $field['values'][0]['value'];
-											}
-										} else {
-											continue;
-										}
-									}
-									if(!empty($phone)){
-										$element = array(
-											'element_id' 	=> $contact['id'],
-											'element_type'	=> ($contact['type'] == 'contact')?1:3,
-											'type'	=> ($contact['type'] == 'contact')?1:3,
-											'phone' => $phone,
-											'entity' => $contact['type'],
-											'element' => array(
-												'text' => $contact['name'],
-												'url' => ($contact['type'] == 'contact')?'/contacts/detail/'.$contact['id']:'/companies/detail/'.$contact['id'],
-											)
-										);
-
-										if(!empty($contact['linked_company_id']) && !empty($contact['company_name'])) {
-											$element['company'] = array(
-												'text' => $contact['company_name'],
-												'url' => '/companies/detail/'.$contact['linked_company_id'],
-											);
-										}
-										$result['contacts'][] = $element;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		if(empty($result)) {
-			$result['error'] = 'elements_empty';
-		} else if (!empty($count)) {
-			if($count < $result['contacts']){
-				$result['error'] = 'some_contacts_empty';
-			}
-		}
-		echo json_encode($result);die;
-    }
-
-    private function get_sip_registration($account_info){
-		if(is_array($account_info) && !empty($account_info['account_id']) && !empty($account_info['api_key'])) {
-			$res = $this->post(
-				array(),
-				'GetSipRegistrations',
-				$account_info['account_id'],
-				$account_info['api_key']
-			);
-		}
-		if(empty($res['result'])) {
-            $res = false;
-        }
-        return $res;
-    }
-
-    private function create_sip_registration($params, $account_info){
-        if(!empty($params) && is_array($params)) {
-            if(!empty($params['username']) && !empty($params['proxy'])) {
-                $data = array();
-                $data['cmd'] = 'CreateSipRegistration';
-                foreach(array('username','proxy','outbound_proxy','password') as $key) {
-                    if(!empty($params[$key])) {
-                        $data[$key] = $params[$key];
-                    }
-                }
-                $res = $this->post(
-                    $data,
-                    'CreateSipRegistration',
-                    $account_info['account_id'],
-                    $account_info['api_key']
-                );
-                $this->bind_registration_to_account($res['sip_registration_id'], $account_info);
-            }
-        }
-    }
-
-    private function bind_registration_to_account($sip_registration_id, $account_info) {
-        $sip_registration_id = intval($sip_registration_id);
-        if($sip_registration_id > 0) {
-            $res = $this->post(
-                array(
-                    'sip_registration_id'   => $sip_registration_id,
-                    'application_id'        => $account_info['application_id']
-                ),
-                'BindSipRegistration',
-                $account_info['account_id'],
-                $account_info['api_key']
-            );
-        }
-    }
-
-    private function delete_sip_registration($registrations, $account_info){
-        if(!empty($registrations) && is_array($registrations)) {
-            foreach($registrations as $sip_reg_id) {
-                $res = $this->post(
-                    array(
-                        'sip_registration_id' => $sip_reg_id
-                    ),
-                    'DeleteSipRegistration',
-                    $account_info['account_id'],
-                    $account_info['api_key']
-                );
-            }
-        }
-    }
-
-    protected function endpoint_sip_reg() {
-		$account = $this->account->current();
-		if(!empty($account['widget']) && !empty($account['widget']['conf'])) {
-			
-			if (!is_array($account['widget']['conf'])) {
-            	$conf = json_decode($account['widget']['conf'], true);
-        	}else{
-        		$conf = $account['widget']['conf'];
-        	}			
-		}
-
-		
-        $sip_domain = $this->param('custom_sip_line');
-        $auth_data = $this->param('auth_data');
-        if(!empty($conf) && strlen($sip_domain) > 0 && !empty($auth_data)) {
-            $registrations = $this->get_sip_registration($conf);
-            $reg_users = $reg_for_delete = $form_data = array();
-            foreach($auth_data as $data) {
-                $form_data[$data['login']] =  array(
-                    'username' => $data['login'],
-                    'proxy' => $sip_domain,
-                    'outbound_proxy' => '',
-                    'password' => $data['password']
-                );
-            }
-            $sip_logins = array_keys($form_data);
-            if(is_array($registrations['result'])){
-                foreach($registrations['result'] as $registration) {
-                    if(in_array($registration['username'], $reg_users) ||
-                        (isset($registration['error_message']) && $registration['successful'] === false)){
-                        $reg_for_delete[] = $registration['sip_registration_id'];
-                    } else {
-                        if(!in_array($registration['username'], $sip_logins)){
-                            $reg_for_delete[] = $registration['sip_registration_id'];
-                        }
-                        $reg_users[$registration['sip_registration_id']] = $registration['username'];
-                    }
-                }
-            }
-
-            $els_for_add = array_diff($sip_logins, $reg_users);
-            foreach($els_for_add as $login) {
-                if(!empty($form_data[$login])) {
-                    $this->create_sip_registration(
-                        $form_data[$login],
-                        $conf
-                    );
-                }
-            }
-            if(sizeof($reg_for_delete) > 0){
-                $this->delete_sip_registration($reg_for_delete, $conf);
-            }
-        }
-        $result = array('status' => true);
-        echo json_encode($result);
-        exit;
-    }
-
-	protected function endpoint_check_user(){
-		
-
-        $user_id  = intval($this->param('user_id'));
-        $user_ext = $this->param('user_ext');
-
-        $user_ext = (is_array($user_ext))?$user_ext:array();
-
-        if(!empty($user_ext['login'])) {
-            $user_ext = $user_ext['login'];
-        } else {
-            $user_ext = $user_id;
-        }
-
-        $account    = $this->account->current();
-        $settings   = $account['widget']['conf'];       
-
-        if (!is_array($settings)) {
-            $settings = json_decode($settings, true);
-        }             
-        
-        if(!empty($settings)) {
-            $account_id = $settings['account_id'];
-            $api_key    = $settings['api_key'];
-            $application_id = $settings['application_id'];
-            $password   = $settings['password'];
-        } else {
-            $this->error('empty settings');
-        }
-
-        $display = $login = 'amocrm-' . $user_ext . '-' . $account_id;
-        
-        $res = $this->post(
-            array(
-                'user_name'=>$login
-            ),
-            'GetUsers',
-            $account_id,
-            $api_key
-        );
-        $result = array();
-        if (array_key_exists('result',$res) && $login && $password && $account_id && $api_key && $application_id) {
-            if ($res['count']==1){
-                $res = $res['result'][0];
-                $res['result'] = 1;
-            } else {
-                foreach ($account['users'] as $u) {
-                    if ($u['id']== $user_id) {
-                        $display = trim($u['name'].' '.$u['last_name']);
-                    }
-                }
-
-                $res = $this->post(
-                    array(
-                        'user_name'=>$login,
-                        'user_display_name'=>$display,
-                        'user_password'=>$password
-                    ),
-                    'AddUser',
-                    $account_id,
-                    $api_key
-                );
-            }
-
-            if (array_key_exists('result',$res)) {
-                $res = $this->post(array(
-                    'user_id'=>$res['user_id'],
-                    'application_id'=>$application_id
-                ),'BindUser',$account_id,$api_key);
-
-                if (array_key_exists('result',$res)) {
-                    $this->ok(json_encode(array('login' => $login,'result'=>$result)));
-                }
-            }
-        }
-
-		$this->error('fault');
-
+		//\Helpers\Debug::vars($this->contacts->get($params),'contacts');
+		//\Helpers\Debug::vars($this->leads->get($params),'leads');
+		//\Helpers\Debug::vars($this->tasks->get($params),'tasks');
+		//\Helpers\Debug::vars($this->notes->get($params), 'notes');
 	}
 
-	protected function endpoint_add_phone(){
-		
-		$phone_number = $this->param('phone');
-		$api_key = $this->param('api_key');
-		$account_id = $this->param('account_id');
+	protected function endpoint_set(){
 
-		$phone = $this->getphone($phone_number,$account_id,$api_key);
+		/**
+		 * contacts set example
+		 */
+		$request = array(
+						'add'=>array(),
+						'update'=>array()
+						);
 
-		if (!$phone) {
-			$res = $this->post(array(
-				'callerid_number'=>$phone_number
-			),'AddCallerID',$account_id,$api_key);
-			if (array_key_exists('result',$res)) {
-				$phone = $this->getphone($phone_number,$account_id,$api_key);
-			}
-		}
+		$request['add'][] = array(
+								'name' => 'test_widget_'.rand(0,9999999),
+								//'date_create'=>1298904164, //optional
+								//'last_modified' => 1298904164, //optional
+								'linked_leads_id' => array( //array of linked leads ids
+														2000309,
+														2000042
+														),
+								'company_name' => 'amowidget',
+								'custom_fields' => array(
+														array(
+															'id' => 9536, //custom field id
+															'values' => array(
+																			array(
+																					'value' => rand(0,999).'-'.rand(0,99).'-'.rand(0,99),
+																					//enum for phone,email and im must be symbolic, for others numeric
+																					//(all enums are in account description)
+																					//see $this->account->current('custom_fields')
+																					'enum' => 'MOB',
+																					),
+																			array(
+																				'value' => rand(0,999).'-'.rand(0,99).'-'.rand(0,99),
+																				'enum' => 'MOB',
+																			),
+																			array(
+																				'value' => '7('.rand(0,999).')'.rand(0,999).'-'.rand(0,99).'-'.rand(0,99),
+																				'enum' => 'HOME',
+																			),
+																		),
+															),
+														array(
+															'id' => 9540, //custom field id
+															'values' => array(
+																			array(
+																				'value' => rand(0,999).'@mail.com',
+																				//enum for phone,email and im must be symbolic, for others numeric
+																				//(all enums are in account description)
+																				//see $this->account->current('custom_fields')
+																				'enum' => 'WORK',
+																			),
+																			array(
+																				'value' => rand(0,999).'@mail.com',
+																				'enum' => 'PRIV',
+																			),
+																			array(
+																				'value' => rand(0,999).'@mail.com',
+																				'enum' => 'OTHER',
+																			),
+															),
+														),
+														array(
+															'id' => 9538,
+															'values' => array(
+																			0 => array(
+																					'value' => str_shuffle('qwertyuiopasdfghjklzxcvbnm').' '.rand(0,999999).str_shuffle('qwertyuiopasdfghjklzxcvbnm')
+																			)
+															)
+														),
+														array(
+															'id' => 9534,
+															'values' => array(
+																			0 => array(
+																					'value' => str_shuffle('qwertyuio\'"pasdfghjklzxcvbnm').'.com'
+																					)
+																			)
+															),
+														//select field must contain value from enums list (ONLY ONE), otherwise api will take first one
+														array(
+															'id' => 334046,
+															'values' => array(
+																			0 => array(
+																					'value' => 'list3',
+																					)
+																			)
+														),
+														array(
+															'id' => 424776,
+															'values' => array(
+																			0 => array(
+																					'value' => 5555
+																					)
+																			)
+															),
+														)
+								);
 
-		if ($phone) {
-    		$res = $this->post(
-				array(
-					'callerid_id'=>$phone['callerid_id']
-				),
-				'VerifyCallerID',
-				$account_id,
-				$api_key
-			);
+		$request['update'][] = array(
+									'id'=>1232810,
+									'last_modified'=>time(),//if last modified is lower than in amoCRM DB, then it will not rewrite, but will return what it have
+									'responsible_user_id'=>23305,
+									'linked_leads_id'=>array(
+															199402
+															)
+									//other fields fills same as for add
+									);
 
-			if (array_key_exists('result',$res)){
-				$this->ok($phone);
-			}
-    	}
+		//\Helpers\Debug::vars($this->contacts->set($request));
 
-		$this->error('('.$res['error']['code'].') '.$res['error']['msg']);
+		/**
+		 * notes set example
+		 */
+		$request = array(
+						/*'add'=>array(
+									array(
+										'element_id' => 8000651, //contact/lead id
+										'element_type' => $this->_types['contacts'], //contact/lead type - can be found in variable $this->_types['contacts'] or $this->_types['leads']
+										'note_type' => 4, //available note's types you can find in $this->account->current('note_types'),
+										'date_create'=>time()-360000, //optional field
+										//'last_modified'=>time(), //optional field
+										'text' => 'amowidget note test common '.rand(0,99999)
+									),
+									array(
+										'element_id' => 2000309,
+										'element_type' => $this->_types['leads'],
+										'note_type' => 4,
+										'text' => 'amowidget note for lead '.rand(0,99999)
+									),
+								),*/
+						'update'=>array(
+										array (
+											'id' => 1088098,
+											'element_id' => 200808,
+											'element_type' => $this->_types['leads'],
+											'note_type' => 4,
+											'last_modified' =>time(), //if last modified is lower than in amoCRM DB, then it will not rewrite, but will return what it have
+											'text' => "Test update \n alalalala",
+								            ),
+									)
+						);
+		//\Helpers\Debug::vars($this->notes->set($request));
+
+		/**
+		 * tasks set example
+		 */
+		$request = array(
+						'add'=>array(
+									array(
+										'element_id' => 8000651, //contact/lead id
+										'element_type' => $this->_types['contacts'], //contact/lead type - can be found in variable $this->_types['contacts'] or $this->_types['leads']
+										//'date_create'=>time()-360000, //optional field
+										//'last_modified'=>time(), //optional field
+										'task_type'=>2233, //can be found in $this->account->current('task_types'), can be CALL,LETTER,MEETING or id of task_type
+										'text' => 'amowidget task test mmmm custom '.rand(0,99999),
+										'complete_till'=>time()-360000
+									),
+									array(
+										'element_id' => 2000309,
+										'element_type' => $this->_types['leads'],
+										'task_type'=>'LETTER',
+										'text' => 'amowidget task test LETTER '.rand(0,99999),
+										'complete_till'=>time()+3600*24
+									),
+						),
+						'update'=>array(
+									array (
+										'id' => 402362,
+										'element_id' => 128962,
+										'element_type' => $this->_types['leads'],
+										'task_type'=>'MEETING',
+										'last_modified' =>time(), //if last modified is lower than in amoCRM DB, then it will not rewrite, but will return what it have
+										'text' => 'Meet that guy',
+										'complete_till'=>time()+36000
+									),
+						)
+					);
+		//\Helpers\Debug::vars($this->tasks->set($request));
+
+		/**
+		 * leads set example
+		 */
+		$request = array(
+						'add'=>array(
+									array(
+										'name' => 'amowidget_phar_'.rand(0,99999),
+										//'date_create'=>time()-360000, //optional
+										'status_id' => 26267, //optional - default first account status - list of statuses $this->account->current('leads_statuses')
+										'price' => 500000,
+										'custom_fields' => array(
+																array(
+																	'id' => 290642,
+																	'values' => array(
+																		0 => array(
+																			'value' => str_shuffle('qwert\'"yuiopasdfghjklzxcvbnm').' '.rand(0,999999).str_shuffle('qwertyuiopasdfghjklzxcvbnm')
+																		)
+																	)
+																),
+																array(
+																	'id' => 966,
+																	'values' => array(
+																		0 => array(
+																			'value' => str_shuffle('qwertyuiopasdfghjklzxcvbnm').'.com'
+																		)
+																	)
+																),
+																//select field must contain value from enums list (ONLY ONE), otherwise api will take first one
+																array(
+																	'id' => 968,
+																	'values' => array(
+																		0 => array(
+																			'value' => 'amocrm_'.rand(0,9999),
+																		)
+																	)
+																),
+																array(
+																	'id' => 309752,
+																	'values' => array(
+																		0 => array(
+																			'value' => 1
+																		)
+																	)
+																),
+																array(
+																	'id' => 340947,
+																	'values' => array(
+																		0 => array(
+																			'value' => 'radio3'
+																		)
+																	)
+																),
+															)
+										),
+									),
+						'update'=>array(
+									array(
+										'id'=>2000322,
+										'name' => 'amowidget_lead_upd_'.rand(0,9999),
+										'status_id' => 142, //optional
+										'last_modified' => time(), //if last modified is lower than in amoCRM DB, then it will not rewrite, but will return what it have
+										'price' => rand(10000,9999999),
+										'custom_fields' => array(
+																array(
+																	'id' => 290642,
+																	'values' => array(
+																		0 => array(
+																			'value' => str_shuffle('qwert\'"yuiopasdfghjklzxcvbnm').' '.rand(0,999999).str_shuffle('qwertyuiopasdfghjklzxcvbnm')
+																		)
+																	)
+																),
+																array(
+																	'id' => 966,
+																	'values' => array(
+																		0 => array(
+																			'value' => str_shuffle('qwertyuiopasdfghjklzxcvbnm').'.com'
+																		)
+																	)
+																),
+																//select field must contain value from enums list (ONLY ONE), otherwise api will take first one
+																array(
+																	'id' => 968,
+																	'values' => array(
+																		0 => array(
+																			'value' => 'amocrm_'.rand(0,9999),
+																		)
+																	)
+																),
+																array(
+																	'id' => 309752,
+																	'values' => array(
+																		0 => array(
+																			'value' => 1
+																		)
+																	)
+																),
+																array(
+																	'id' => 340947,
+																	'values' => array(
+																		0 => array(
+																			'value' => 'radio3'
+																		)
+																	)
+																),
+															)
+										)
+									)
+						);
+		//\Helpers\Debug::vars($this->leads->set($request));
+
 	}
-
-	protected function endpoint_activate_phone() {
-		$callerid_id = intval($this->param('callerid_id'));
-		$code = $this->param('code');
-		$api_key = $this->param('api_key');
-		$account_id = $this->param('account_id');
-
-		$res = $this->post(
-			array(
-				'callerid_id'=>$callerid_id,
-				'verification_code'=>$code
-		   	),
-			'ActivateCallerID',
-			$account_id,
-			$api_key
-		);
-		if (array_key_exists('result',$res)){
-			$this->ok($res);
-		} else {
-			$this->error('('.$res['error']['code'].') '.$res['error']['msg']);
-		}
-	}
-
-	protected function endpoint_balance(){
-		$api_key = $this->param('api_key');
-		$account_id = $this->param('account_id');
-		$res = $this->post(array(
-    		'return_live_balance'=>1
-		),'GetAccountInfo',$account_id,$api_key);
-
-		if (array_key_exists('result',$res)){
-			$this->ok(array('balance'=>number_format($res['result']['balance'], 2, '.', ' ' ).' '.$res['result']['currency']));
-		} else {
-			$this->error('fail');
-		}
-	}
-
-    protected function endpoint_register_widget(){
-    	$cnt = 2;
-    	$acc = $this->account->current();
-
-    	$email = $acc['id'].rand(0, 9).'-'.$this->param('amouser');
-    	$acc_name = 'amo-'.$acc['id'].'-'.rand(0, 9);
-    	$password = $this->getRandomString();
-
-    	do {
-	    	$res = $this->post(array(
-	    		'account_name'	=>$acc_name,
-	    		'account_email'	=>$email,
-	    		'account_password'=>$password,
-	    		'active'		=>'true',
-				'language_code'	=>'ru'
-			),'AddAccount');
-
-	    	if (array_key_exists('result',$res)) $cnt=0;else $cnt--;
-
-    	} while ( $cnt );
-
-    	if (array_key_exists('result',$res)){
-            $this->transfer_money_to_child($res['account_id']);
-            $this->getok(array(
-    			'email'=>$email,
-    			'password'=>$password,
-    			'acc_name' => $acc_name,
-    			'account_id' => $res['account_id'],
-    			'api_key' => $res['api_key']
-			));
-    	}
-
-    	$this->error('('.$res['error']['code'].') '.$res['error']['msg']);
-
-	}
-
-    protected function transfer_money_to_child($account_id){
-        $path = $this->point.'TransferMoneyToChildAccount'.'/?';
-        $data = array(
-            'account_name'      => $this->acc_name,
-            'api_key'           => $this->api_key,
-            'amount'            => 5,
-            'child_account_id'  => $account_id
-        );
-
-        foreach  ($data as $key=>$val)
-            $path .= $key.'='.urlencode($val).'&';
-
-        return \Helpers\Curl::init($path);
-    }
-
-    private function time_offset($account){
-        $cur_acc_time_zone=new \DateTimeZone($account['timezone']);
-        $cur_acc_time=new \DateTime();
-        $cur_acc_time-> setTimezone( $cur_acc_time_zone );
-        return $cur_acc_time->getOffset();
-    }
-
 }
-
-?>

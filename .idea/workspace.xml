@@ -2,9 +2,87 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de44190c-dcc7-4ad6-a09c-df7235dacf63" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/widget.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._auth_form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._call_result.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._call_result_fail.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._calls_list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._i18n" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._images" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._incoming_call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._storage_mgmt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._templates" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._visibility.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/._widget.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/i18n/._ru.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._add_list.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._asterisk_item.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._audiotrash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._backspace_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._call_list.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._call_list_opened.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._chain.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._clear_list.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._coin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._dial.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._dial_opened.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._hang_up.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._lattice_item.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._pick_up.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._pick_up_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._play_pause.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._queue_pause.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._remove_item.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._skip_call.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._sort_item.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._standby.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._start_timer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._transfer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._transfer_accept.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._transfer_dial.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/images/._trash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._bind_number.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._call_fail.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._call_list.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._call_list_element.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._call_notification.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._call_result.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._call_status.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._dial_block.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._login_block.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._note-task_block.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._note_add.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__MACOSX/templates/._task_add.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/call_result.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/call_result_fail.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calls_list.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/i18n/ru.json" beforeDir="false" afterPath="$PROJECT_DIR$/i18n/ru.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/incoming_call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage_mgmt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bind_number.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/call_fail.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/call_list.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/call_list_element.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/call_notification.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/call_result.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/call_status.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dial_block.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login_block.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/note-task_block.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/note_add.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/task_add.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visibility.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/widget.php" beforeDir="false" afterPath="$PROJECT_DIR$/widget.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,26 +92,58 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="ru.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/i18n/ru.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="90" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="widget.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/widget.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4493">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manifest.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manifest.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-153">
-              <caret line="6" column="91" selection-start-line="6" selection-start-column="91" selection-end-line="6" selection-end-column="91" />
+            <state relative-caret-position="114">
+              <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="en.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/i18n/en.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="85" selection-start-line="3" selection-start-column="85" selection-end-line="3" selection-end-column="85" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>preload</find>
+      <find>common</find>
+      <find>loca</find>
+      <find>prep</find>
+      <find>call_ac</find>
+      <find>widget</find>
+      <find>api</find>
+      <find>install</find>
+      <find>call_action</find>
+      <find>login</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,8 +151,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/i18n/ru.json" />
         <option value="$PROJECT_DIR$/manifest.json" />
+        <option value="$PROJECT_DIR$/i18n/ru.json" />
+        <option value="$PROJECT_DIR$/i18n/en.json" />
       </list>
     </option>
   </component>
@@ -71,13 +182,18 @@
         <subPane>
           <expand>
             <path>
-              <item name="amocrm_phone_tele2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="amocrm_phone_tele2" type="462c0819:PsiDirectoryNode" />
+              <item name="widget" type="b2602c69:ProjectViewProjectNode" />
+              <item name="widget" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="amocrm_phone_tele2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="amocrm_phone_tele2" type="462c0819:PsiDirectoryNode" />
+              <item name="widget" type="b2602c69:ProjectViewProjectNode" />
+              <item name="widget" type="462c0819:PsiDirectoryNode" />
               <item name="i18n" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="widget" type="b2602c69:ProjectViewProjectNode" />
+              <item name="widget" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -87,12 +203,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/tele2_phone_widget" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fast_k\PhpstormProjects\widget\images" />
+      <recent name="C:\Users\fast_k\PhpstormProjects\widget" />
       <recent name="C:\Users\fast_k\PhpstormProjects\amocrm_phone_tele2" />
       <recent name="C:\Users\fast_k\PhpstormProjects\amocrm_phone_tele2\images" />
     </key>
@@ -121,6 +239,8 @@
       <updated>1536576792068</updated>
       <workItem from="1536576793271" duration="603000" />
       <workItem from="1536577856020" duration="757000" />
+      <workItem from="1536578679119" duration="2657000" />
+      <workItem from="1536583545977" duration="12614000" />
     </task>
     <task id="LOCAL-00001" summary="Revert &quot;Комит после создания проекта&quot;&#10;&#10;This reverts commit b9fdc2c5c4b9f4d40213bdf81797a93158138a05.">
       <created>1536578022571</created>
@@ -136,33 +256,40 @@
       <option name="project" value="LOCAL" />
       <updated>1536578105208</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Revert &quot;Комит после создания проекта&quot;&#10;&#10;This reverts commit b9fdc2c5c4b9f4d40213bdf81797a93158138a05.">
+      <created>1536578693022</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1536578693022</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1360000" />
+    <option name="totallyTimeSpent" value="16631000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1592" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22557841" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3292683" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23136246" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
     </layout>
@@ -180,6 +307,30 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/i18n/ru.json">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18938">
+          <caret line="1114" column="1" lean-forward="true" selection-start-line="1114" selection-start-column="1" selection-end-line="1114" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/i18n/ru.json">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
         </state>
@@ -187,8 +338,74 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153">
+        <state relative-caret-position="102">
           <caret line="6" column="91" selection-start-line="6" selection-start-column="91" selection-end-line="6" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/call_list.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/call_list_opened.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/chain.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/clear_list.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/backspace_icon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/audiotrash.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="1114" column="1" lean-forward="true" selection-start-line="1114" selection-start-column="1" selection-end-line="1114" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/widget.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4493">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage_mgmt.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/i18n/ru.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/tele2_phone_widget/i18n/ru.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/i18n/en.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="85" selection-start-line="3" selection-start-column="85" selection-end-line="3" selection-end-column="85" />
         </state>
       </provider>
     </entry>

@@ -1,10 +1,10 @@
 {
     "widget":{
-            "name": "tele2",
+            "name": "widget.name",
             "description": "widget.description",
             "short_description": "widget.short_description",
-            "code": "tele2",
-            "secret_key": "adjVozwjjL8qa6nMQlbDkAUibjPSkTENiFb52EkvPGq3xNyzI6hgaEvu5oDzyc6m",
+            "code": "tele2phone",
+            "secret_key": "7d1583531cc3493cf31172da35446125f8787ca7cd888ee4e8f1a1dd7fea64de",
             "version": "1.0.0",
             "interface_version": 2,
             "init_once": false,
@@ -27,13 +27,8 @@
                         "type": "text",
                         "required": true
                         },
-                "api_key":{
-                        "name": "settings.api_key",
-                        "type": "text",
-                        "required": true
-                        },
-                "account":{
-                        "name": "settings.account",
+                "password":{
+                        "name": "settings.password",
                         "type": "text",
                         "required": true
                         }
